@@ -1,1 +1,1 @@
-include ':app', ':baseAppLibrary','baseUtilsLibrary','baseUILibrary'
+include ':app', ':baseAppLibrary', ':paylibrary','baseUtilsLibrary','baseUILibrary'
