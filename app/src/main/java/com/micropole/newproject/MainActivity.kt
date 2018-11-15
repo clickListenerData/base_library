@@ -38,11 +38,5 @@ class MainActivity : BaseMvpViewActivity() {
             },1000)
         }
     }
-    /*override fun getPagerTitleView(index: Int): IPagerTitleView {
-
-    }
-
-    override fun getFragments(): List<Fragment> {
-    }*/
 
 }

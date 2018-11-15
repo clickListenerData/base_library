@@ -1,11 +1,19 @@
 package com.micropole.baseapplibrary.appconst;
 
 import android.databinding.BindingAdapter;
+import android.support.v7.widget.RecyclerView;
 import android.widget.ImageView;
+import android.widget.TextView;
+
+import com.bigkoo.convenientbanner.ConvenientBanner;
+import com.chad.library.adapter.base.BaseQuickAdapter;
+import com.micropole.baseapplibrary.widght.RefreshRecyclerView;
+
+import java.util.List;
 
 /**
  * @ClassName BindAdapter
- * @Description todo
+ * @Description support kotlin ???
  * @Author HuaiXianZhong
  * @Sign 。。。
  * @Date 2018/11/13 14:56
@@ -17,4 +25,27 @@ public class BindAdapter {
     public static void setImageUrl(ImageView view,  String url) {
         com.micropole.baseapplibrary.appconst.AdapterKt.setUrl(view,url);
     }
+
+    @BindingAdapter(value = "android:text_html",requireAll = false)
+    public static void setTextHtml(TextView view,String html){
+        com.xx.baseutilslibrary.extensions.ViewExKt.setHtmlText(view,html);
+    }
+
+    @BindingAdapter(value = {"android:convenient_banner_data","android:convenient_banner_is_turn"},requireAll = false)
+    public static void setBannerData(ConvenientBanner view, List<String> data,Long isTurn){
+        com.micropole.baseapplibrary.appconst.AdapterKt.setTurnImage(view,data,isTurn);
+    }
+
+    @BindingAdapter(value = {"android:rv_layout_manager","android:rv_adapter"},requireAll = true)
+    public static void setRvLA(RecyclerView view,RecyclerView.LayoutManager mLayoutManager,RecyclerView.Adapter mAdapter){
+        view.setLayoutManager(mLayoutManager);
+        view.setAdapter(mAdapter);
+    }
+
+    @BindingAdapter(value = {"android:refresh_rv_layout_manager","android:refresh_rv_adapter"},requireAll = true)
+    public static void setRefreshRvLA(RefreshRecyclerView view, RecyclerView.LayoutManager mLayoutManager, BaseQuickAdapter mAdapter){
+        view.setMLayoutManager(mLayoutManager);
+        view.setMAdapter(mAdapter);
+    }
+
 }

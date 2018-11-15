@@ -115,14 +115,15 @@ public class XxGsonConverterFactory extends Converter.Factory {
 //                }
                 if (!baseResponseEntity.getStatus().equals(BaseResponseEntity.Companion.getSUCCESS())) {
                     //接口返回失败时,不继续解析data
-                    if (baseResponseEntity.getCode().equals("333")){ //短token过期
+                    /*if (baseResponseEntity.getCode().equals("333")){ //短token过期
                         throw new InvalidShortTokenException(baseResponseEntity.getMsg());
                     }else if (baseResponseEntity.getCode().equals("444")){  //长token过期
                         throw new InvalidLongTokenException(baseResponseEntity.getMsg());
                     }else {
-                        throw new ApiFaileException(
-                                !TextUtils.isEmpty(baseResponseEntity.getMsg()) ? baseResponseEntity.getMsg() : "失败");
-                    }
+
+                    }*/
+                    throw new ApiFaileException(
+                            !TextUtils.isEmpty(baseResponseEntity.getMsg()) ? baseResponseEntity.getMsg() : "失败");
                 }
                 //前置操作正常,返回解析内容
                 return adapter.fromJson(valueString);

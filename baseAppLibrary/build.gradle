@@ -42,7 +42,7 @@ dependencies {
     //RecyclerViewAdapter
     api 'com.github.CymChad:BaseRecyclerViewAdapterHelper:2.9.38'
     //轮播图
-    api 'com.bigkoo:ConvenientBanner:2.1.4'
+    api 'com.bigkoo:convenientbanner:2.0.5'
     //SuperTextView
     api 'com.github.chenBingX:SuperTextView:v3.1.1'
     api 'com.github.hackware1993:MagicIndicator:1.5.0'

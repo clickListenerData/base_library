@@ -23,6 +23,9 @@ object Constants {
     const val KEY_IS_FIRST = "is_first"
     const val KEY_USER_INFO = "user_info"
 
+    const val LONG_TOKEN_INVALID = "333"
+    const val SHORT_TOKEN_INVALID = "444"
+
     fun isFirst() = SPUtils.getInstance().getBoolean(KEY_IS_FIRST,true)
 
     fun setNoFirst(){SPUtils.getInstance().put(KEY_IS_FIRST,false)}
