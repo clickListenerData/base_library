@@ -4,6 +4,7 @@ import android.app.Activity
 import android.support.v4.app.Fragment
 
 import android.widget.Toast
+import com.blankj.utilcode.util.ToastUtils
 
 /**
  * author: Gubr
@@ -11,5 +12,9 @@ import android.widget.Toast
  * describe:
  */
 fun Fragment.toast(content: String, duration: Int= Toast.LENGTH_SHORT){
-    Toast.makeText(activity,content,duration).show()
+    if (duration == Toast.LENGTH_SHORT){
+        ToastUtils.showShort(content)
+    }else{
+        ToastUtils.showLong(content)
+    }
 }

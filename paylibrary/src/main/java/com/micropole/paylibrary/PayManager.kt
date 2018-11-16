@@ -64,7 +64,7 @@ object PayManager {
         }
     }
 
-    fun openAnyPay(activity: Activity,appID : String = "",type : Int = PAY_ALI,strInfo:String){
+    fun openAnyPay(activity: Activity,appID : String,type : Int,strInfo:String){
         if (type == PAY_ALI){
             openAliPay(activity,strInfo)
         }else if (type == PAY_WECHAT){

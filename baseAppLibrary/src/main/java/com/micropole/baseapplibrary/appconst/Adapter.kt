@@ -22,7 +22,7 @@ import com.xx.baseutilslibrary.extensions.loadImag
 
 
 fun<DATA : Any> BaseQuickAdapter<DATA,out BaseViewHolder>.setListData(data : List<DATA>){
-    if (this?.isLoading!!){
+    if (this.isLoading){
         if (data.isNotEmpty()){
             this.loadMoreComplete()
             this.addData(data)

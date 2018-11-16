@@ -1,17 +1,15 @@
 package com.xx.baseutilslibrary.extensions
 
-import android.support.v4.view.ViewPropertyAnimatorUpdateListener
 import android.text.Html
-import android.view.View
 import android.widget.ImageView
 import android.widget.TextView
-import com.blankj.utilcode.util.ImageUtils
 import com.bumptech.glide.Glide
 import com.bumptech.glide.load.resource.bitmap.BitmapTransformation
 import com.bumptech.glide.load.resource.bitmap.RoundedCorners
 import com.bumptech.glide.request.RequestOptions
 import com.xx.baseutilslibrary.R
 import com.xx.baseutilslibrary.network.retrofit.Retrofit2Manager
+
 /**
  * author: Gubr
  * date: 2018/5/7
@@ -27,8 +25,12 @@ import com.xx.baseutilslibrary.network.retrofit.Retrofit2Manager
 fun ImageView.loadImag( url: String?, tran: BitmapTransformation? = null, plach: Int = 0, error: Int = 0,isCircle : Boolean = false,radio : Int = 0) {
     var urltemp=url
     if (url.isNullOrEmpty()) return
-    if (url!!.length>1&&url[0].equals('/')) {
-        urltemp=Retrofit2Manager.instance.apiConfigProvider?.debugHost+url
+    if (url!!.length > 1 && url[0] == '/') {
+        urltemp = if (Retrofit2Manager.instance.apiConfigProvider!!.isDebug){
+            Retrofit2Manager.instance.apiConfigProvider!!.debugHost + url
+        }else{
+            Retrofit2Manager.instance.apiConfigProvider?.releaseHost+url
+        }
     }
     val options = RequestOptions().also {
         if (tran != null) it.transform(tran)

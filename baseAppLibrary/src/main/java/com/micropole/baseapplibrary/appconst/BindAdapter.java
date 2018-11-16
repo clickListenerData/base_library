@@ -42,10 +42,4 @@ public class BindAdapter {
         view.setAdapter(mAdapter);
     }
 
-    @BindingAdapter(value = {"android:refresh_rv_layout_manager","android:refresh_rv_adapter"},requireAll = true)
-    public static void setRefreshRvLA(RefreshRecyclerView view, RecyclerView.LayoutManager mLayoutManager, BaseQuickAdapter mAdapter){
-        view.setMLayoutManager(mLayoutManager);
-        view.setMAdapter(mAdapter);
-    }
-
 }
