@@ -1,6 +1,8 @@
 package com.micropole.newproject
 
 import android.Manifest
+import android.annotation.SuppressLint
+import com.blankj.utilcode.util.CrashUtils
 import com.micropole.baseapplibrary.activity.BaseSplashActivity
 
 /**
@@ -20,8 +22,10 @@ class SplashActivity : BaseSplashActivity() {
 
     override fun getBg(): Int = R.drawable.bg_hotel
 
+    @SuppressLint("MissingPermission")
     override fun isPermisson(isGranted: Boolean) {
         if (isGranted){
+            CrashUtils.init()
             startActivityThenFinishSelf(MainActivity::class.java)
         }
     }

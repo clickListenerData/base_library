@@ -5,6 +5,7 @@ import android.support.v7.widget.LinearLayoutManager
 import com.micropole.baseapplibrary.adapter.DataBindAdapter
 import com.micropole.baseapplibrary.appconst.setListData
 import com.xx.baseuilibrary.mvp.BaseMvpViewActivity
+import com.xx.baseutilslibrary.extensions.startActivity
 import kotlinx.android.synthetic.main.activity_main.*
 
 class MainActivity : BaseMvpViewActivity() {
@@ -22,6 +23,10 @@ class MainActivity : BaseMvpViewActivity() {
             arrayListOf.add(mainBean)
         }
         dataBindAdapter.setListData(arrayListOf)
+
+        dataBindAdapter.setOnItemClickListener { adapter, view, position ->
+            startActivity<UpImgActivity>()
+        }
     }
 
     override fun initEvent() {

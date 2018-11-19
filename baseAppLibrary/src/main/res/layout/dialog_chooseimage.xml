@@ -2,7 +2,7 @@
 <LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
     android:layout_width="match_parent"
     android:layout_height="wrap_content"
-    android:background="@color/colorWhite"
+    android:background="#fff"
     android:orientation="vertical">
 
     <Button
@@ -22,7 +22,7 @@
     <View
         android:layout_width="match_parent"
         android:layout_height="0.5dp"
-        android:background="@color/colorGray" />
+        android:background="#ddd" />
 
     <Button
         android:id="@+id/btn_album"
@@ -41,7 +41,7 @@
     <View
         android:layout_width="match_parent"
         android:layout_height="10dp"
-        android:background="@color/colorGray" />
+        android:background="#ddd" />
 
     <Button
         android:id="@+id/btn_cancel"

@@ -6,10 +6,11 @@ import com.micropole.baseapplibrary.util.ImageChooseHelper
 import com.xx.baseuilibrary.mvp.BaseMvpActivity
 import com.xx.baseuilibrary.mvp.BaseMvpView
 import com.xx.baseuilibrary.mvp.presenter.BaseMvpPresenter
+import org.devio.takephoto.model.TResult
 
 /**
  * @ClassName       BaseUpImgActivity
- * @Description     todo
+ * @Description     fragment take photo invoke  and up img
  * @Author          HuaiXianZhong
  * @Sign            。。。
  * @Date            2018/11/16 16:23
@@ -17,26 +18,30 @@ import com.xx.baseuilibrary.mvp.presenter.BaseMvpPresenter
  */
 abstract class BaseUpImgActivity<P : BaseMvpPresenter<*,out BaseMvpView>> : BaseMvpActivity<P>() {
 
-    lateinit var imageChooseHelper : ImageChooseHelper
+    var imageChooseHelper : ImageChooseHelper? = null
 
     override fun onCreate(savedInstanceState: Bundle?) {
+        imageChooseHelper = ImageChooseHelper(this){
+            imgResult(it)
+        }
+        imageChooseHelper?.takePhoto?.onCreate(savedInstanceState)
         super.onCreate(savedInstanceState)
-        imageChooseHelper = ImageChooseHelper(this){}
-        imageChooseHelper.takePhoto.onCreate(savedInstanceState)
     }
 
     override fun onSaveInstanceState(outState: Bundle?) {
         super.onSaveInstanceState(outState)
-        imageChooseHelper.takePhoto.onSaveInstanceState(outState)
+        imageChooseHelper?.takePhoto?.onSaveInstanceState(outState)
     }
 
     override fun onActivityResult(requestCode: Int, resultCode: Int, data: Intent?) {
         super.onActivityResult(requestCode, resultCode, data)
-        imageChooseHelper.takePhoto.onActivityResult(requestCode, resultCode, data)
+        imageChooseHelper?.takePhoto?.onActivityResult(requestCode, resultCode, data)
     }
 
     override fun onRequestPermissionsResult(requestCode: Int, permissions: Array<out String>, grantResults: IntArray) {
         super.onRequestPermissionsResult(requestCode, permissions, grantResults)
-        imageChooseHelper.onRequestPermissionsResult(requestCode, permissions, grantResults)
+        imageChooseHelper?.onRequestPermissionsResult(requestCode, permissions, grantResults)
     }
+
+    abstract fun imgResult(result : TResult)
 }

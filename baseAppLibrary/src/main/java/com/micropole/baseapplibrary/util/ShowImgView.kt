@@ -3,7 +3,6 @@ package com.micropole.baseapplibrary.util
 import android.content.Context
 import android.net.Uri
 import android.util.AttributeSet
-import android.util.Log
 import android.view.Gravity
 import android.view.View
 import android.widget.FrameLayout
@@ -15,7 +14,7 @@ import java.io.File
 
 /**
  * @ClassName       ShowImgView
- * @Description     todo
+ * @Description     todo 多行 add img
  * @Author          HuaiXianZhong
  * @Sign            。。。
  * @Date            2018/11/16 15:55
@@ -24,19 +23,38 @@ import java.io.File
 class ShowImgView(context: Context,attributeSet: AttributeSet) : LinearLayout(context,attributeSet) {
 
     var maxCount = 3  //最大图片数
+        private set(value) {
+            if (value != field) {
+                removeAllViews()
+                createAddView()
+            }
+            field = value
+        }
     var maxLine = 1   //最大行数
+        private set(value) {
+            if (value != field) {
+                removeAllViews()
+                createAddView()
+            }
+            field = value
+        }
 
-    var isAdd = true
+    var isAdd = true   //是否可在 add img
     var addDrawable : Int = 0
+    set(value) {
+        field = value
+        removeAllViews()
+        createAddView()
+    }
     var deleteDrawable : Int = 0
     var mImgList = arrayListOf<String>()
     private set
-    get() {
+    /*get() {
         for (i in mImgList.iterator()){
             Log.i("img_list",i)
         }
         return field
-    }
+    }*/
 
     var imageChooseHelper : ImageChooseHelper? = null
     var addAction : (view : View) -> Unit = {}
@@ -46,29 +64,23 @@ class ShowImgView(context: Context,attributeSet: AttributeSet) : LinearLayout(co
     }
 
     init {
-        createAddView()
+        post { createAddView() }
     }
 
     override fun addView(child: View?) {
         if (childCount > maxCount){
             return
         }
-        if (childCount == maxCount){  //不可再 add image
-            isAdd = false
+        if (childCount > 0 && child?.tag != true){
+            mImgList.add("")
+            removeViewAt(childCount - 1)
         }
-        mImgList.add("")
-        removeViewAt(childCount - 1)
         val i = maxCount / maxLine  //每行显示的图片数
-        val i1 = this.layoutParams.width / i  //图片 width
-        val i2 = this.layoutParams.height / maxLine //图片 height
+        val i1 = width / i  //图片 width
+        val i2 = height / maxLine //图片 height
         val params = LinearLayout.LayoutParams(i1,i2)
-        if (childCount + 1 < maxCount){
-            params.rightMargin = 10
-        }
+        params.rightMargin = 10
         addView(child,params)
-        if (isAdd){
-            createAddView()
-        }
     }
 
     override fun removeViewAt(index: Int) {
@@ -88,12 +100,13 @@ class ShowImgView(context: Context,attributeSet: AttributeSet) : LinearLayout(co
         }
     }
 
-    fun createAddView(){
-        isAdd = true
+    private fun createAddView(){
         val imageView = ImageView(this.context)
         imageView.setBackgroundDrawable(this.context.resources.getDrawable(R.drawable.shape_gray_r3))
         imageView.scaleType = ImageView.ScaleType.CENTER_INSIDE
         if (addDrawable != 0) imageView.setImageResource(addDrawable)
+        else imageView.setImageResource(android.R.drawable.ic_input_add)
+        imageView.tag = true
         imageView.setOnClickListener {
             if (imageChooseHelper == null){
                 addAction.invoke(it)
@@ -104,7 +117,7 @@ class ShowImgView(context: Context,attributeSet: AttributeSet) : LinearLayout(co
                     }else if (it == 1){
                         imageChooseHelper?.selectPicker()
                     }
-                }
+                }.show()
             }
         }
         addView(imageView)
@@ -116,7 +129,7 @@ class ShowImgView(context: Context,attributeSet: AttributeSet) : LinearLayout(co
         createImgView(this.context,path)
     }
 
-    fun createImgView(context: Context,path : String){
+    private fun createImgView(context: Context,path : String){
         val frameLayout = FrameLayout(context)
 
         val imageView = ImageView(context)
@@ -131,9 +144,14 @@ class ShowImgView(context: Context,attributeSet: AttributeSet) : LinearLayout(co
         frameLayout.addView(createDeleteView(context,frameLayout),params)
 
         this.addView(frameLayout)
+        if (childCount < maxCount){
+            createAddView()
+        }else{
+            isAdd = false
+        }
     }
 
-    fun  createDeleteView(context: Context,tag : View) : View{
+    private fun  createDeleteView(context: Context,tag : View) : View{
         val imageView = ImageView(context)
         imageView.scaleType = ImageView.ScaleType.CENTER_INSIDE
         imageView.tag = tag

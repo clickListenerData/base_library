@@ -1,3 +1,4 @@
 <resources>
     <string name="app_name">NewProject</string>
+    <string name="title_activity_up_img">UpImgActivity</string>
 </resources>
